@@ -1,11 +1,13 @@
 package me.fabxoe.inflearnthejavatest;
 
 import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.condition.*;
 
 import java.lang.reflect.Executable;
 import java.time.Duration;
 import java.util.function.Supplier;
 
+import static javax.swing.DropMode.ON;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
@@ -15,6 +17,8 @@ class StudyTest {
 
     @Test
     @DisplayName("스터디 만들기")
+    @EnabledOnOs({OS.MAC, OS.LINUX})
+    @EnabledOnJre({JRE.JAVA_8, JRE.JAVA_9, JRE.JAVA_10})
     void create_new_study() {
         String test_env = System.getenv("TEST_ENV");
         System.out.println(test_env);
@@ -38,6 +42,8 @@ class StudyTest {
 
     @Test
     @DisplayName("스터디 만들기2")
+    @DisabledOnOs(OS.MAC)
+    @DisabledOnJre(JRE.OTHER)
     void create_new_study_again() {
         System.out.println("create1");
     }
