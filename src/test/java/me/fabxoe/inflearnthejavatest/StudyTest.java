@@ -18,7 +18,7 @@ class StudyTest {
     @Test
     @DisplayName("스터디 만들기")
     @EnabledOnOs({OS.MAC, OS.LINUX})
-    @EnabledOnJre({JRE.JAVA_8, JRE.JAVA_9, JRE.JAVA_10})
+    @EnabledOnJre({JRE.JAVA_8, JRE.JAVA_9, JRE.JAVA_10, JRE.JAVA_11})
     void create_new_study() {
         String test_env = System.getenv("TEST_ENV");
         System.out.println(test_env);
