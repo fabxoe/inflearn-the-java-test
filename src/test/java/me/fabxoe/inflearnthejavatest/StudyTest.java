@@ -16,20 +16,16 @@ import static org.junit.jupiter.api.Assumptions.assumingThat;
 class StudyTest {
 
     @Test
-    @DisplayName("스터디 만들기")
-    @EnabledOnOs({OS.MAC, OS.LINUX})
-    @EnabledOnJre({JRE.JAVA_8, JRE.JAVA_9, JRE.JAVA_10, JRE.JAVA_11})
-    @EnabledIfEnvironmentVariable(named = "TEST_ENV", matches = "local")
+    @DisplayName("스터디 만들기 fast")
+    @Tag("fast")
     void create_new_study() {
         Study actual = new Study(100);
         assertThat(actual.getLimit()).isGreaterThan(0);
     }
 
     @Test
-    @DisplayName("스터디 만들기2")
-    @EnabledIfEnvironmentVariable(named = "TEST_ENV", matches = "sungmin")
-    @DisabledOnOs(OS.MAC)
-    @DisabledOnJre(JRE.OTHER)
+    @DisplayName("스터디 만들기 slow")
+    @Tag("slow")
     void create_new_study_again() {
         System.out.println("create1");
     }
