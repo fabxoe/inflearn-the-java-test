@@ -2,6 +2,8 @@ package me.fabxoe.inflearnthejavatest;
 
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.condition.*;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import java.lang.reflect.Executable;
 import java.time.Duration;
@@ -32,6 +34,13 @@ class StudyTest {
     @RepeatedTest(value = 10, name = "{displayName}, {currentRepetition}/{totalRepetitions}")
     void repeatTest(RepetitionInfo repetitionInfo){
         System.out.println("test " + repetitionInfo.getCurrentRepetition() + "/" + repetitionInfo.getTotalRepetitions());
+    }
+
+    //반복할 때마다 다른 값을 사용하는 기능 junit5 부터 기본 지원
+    @ParameterizedTest
+    @ValueSource(strings = {"날씨가", "많이", "추워지고", "있어요."})
+    void parameterizedTest(String message) {
+        System.out.println(message);
     }
 
     @BeforeAll
