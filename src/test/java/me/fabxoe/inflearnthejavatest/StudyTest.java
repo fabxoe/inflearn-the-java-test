@@ -37,7 +37,8 @@ class StudyTest {
     }
 
     //반복할 때마다 다른 값을 사용하는 기능 junit5 부터 기본 지원
-    @ParameterizedTest
+    @DisplayName("스터디 만들기")
+    @ParameterizedTest(name = "{index} {displayName} message={0}") //메서드의 0번 파라미터를 참조. 현재 파라미터가 1개 밖에 없으니 0번 파라미터만 참조하고 있다.
     @ValueSource(strings = {"날씨가", "많이", "추워지고", "있어요."})
     void parameterizedTest(String message) {
         System.out.println(message);
