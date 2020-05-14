@@ -55,7 +55,7 @@ class StudyTest {
     static class StudyAggregator implements ArgumentsAggregator {
         @Override
         public Object aggregateArguments(ArgumentsAccessor accessor, ParameterContext context) throws ArgumentsAggregationException {
-           return new Study(accessor.getInteger(0), accessor.getString(1));
+           return new Study(accessor.getInteger(0), accessor.getString(1));// 10과 자바스터디가 각각 0과 1
         }
     }
 
