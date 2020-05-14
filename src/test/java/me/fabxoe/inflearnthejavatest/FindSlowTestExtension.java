@@ -6,9 +6,15 @@ import org.junit.jupiter.api.extension.ExtensionContext;
 import org.springframework.test.context.event.annotation.AfterTestExecution;
 import org.springframework.test.context.event.annotation.BeforeTestExecution;
 
+import java.lang.reflect.Method;
+
 public class FindSlowTestExtension implements BeforeTestExecutionCallback, AfterTestExecutionCallback {
 
-    private static final long THRESHHOLD = 1000L;
+    private long THRESHOLD;
+
+    public FindSlowTestExtension(long THRESHOLD) {
+        this.THRESHOLD = THRESHOLD;
+    }
 
     @Override
     public void beforeTestExecution(ExtensionContext context) throws Exception {
@@ -19,11 +25,14 @@ public class FindSlowTestExtension implements BeforeTestExecutionCallback, After
 
     @Override
     public void afterTestExecution(ExtensionContext context) throws Exception {
-        String testMethodName = context.getRequiredTestMethod().getName();
+        Method requiredTestMethod = context.getRequiredTestMethod();
+        SlowTest annotation = requiredTestMethod.getAnnotation(SlowTest.class);
+
+        String testMethodName = requiredTestMethod.getName();
         ExtensionContext.Store store = getStore(context);
         Long start_time = store.remove("START_TIME", long.class);
         long duration = System.currentTimeMillis() - start_time;
-        if (duration > THRESHHOLD) {
+        if (duration > THRESHOLD && annotation == null) {
             System.out.printf("Please consider mark method [%s] with @SlowTest. \n", testMethodName);
         }
     }
