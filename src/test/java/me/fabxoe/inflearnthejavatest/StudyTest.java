@@ -3,6 +3,9 @@ package me.fabxoe.inflearnthejavatest;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.condition.*;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.EmptySource;
+import org.junit.jupiter.params.provider.NullAndEmptySource;
+import org.junit.jupiter.params.provider.NullSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import java.lang.reflect.Executable;
@@ -40,6 +43,9 @@ class StudyTest {
     @DisplayName("스터디 만들기")
     @ParameterizedTest(name = "{index} {displayName} message={0}") //메서드의 0번 파라미터를 참조. 현재 파라미터가 1개 밖에 없으니 0번 파라미터만 참조하고 있다.
     @ValueSource(strings = {"날씨가", "많이", "추워지고", "있어요."})
+//    @EmptySource
+//    @NullSource
+//    @NullAndEmptySource
     void parameterizedTest(String message) {
         System.out.println(message);
     }
