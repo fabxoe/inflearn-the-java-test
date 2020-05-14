@@ -2,8 +2,12 @@ package me.fabxoe.inflearnthejavatest;
 
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.condition.*;
+import org.junit.jupiter.api.extension.ParameterContext;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.aggregator.AggregateWith;
 import org.junit.jupiter.params.aggregator.ArgumentsAccessor;
+import org.junit.jupiter.params.aggregator.ArgumentsAggregationException;
+import org.junit.jupiter.params.aggregator.ArgumentsAggregator;
 import org.junit.jupiter.params.converter.ArgumentConversionException;
 import org.junit.jupiter.params.converter.ConvertWith;
 import org.junit.jupiter.params.converter.SimpleArgumentConverter;
@@ -44,9 +48,15 @@ class StudyTest {
     @DisplayName("스터디 만들기")
     @ParameterizedTest(name = "{index} {displayName} message={0}") //메서드의 0번 파라미터를 참조. 현재 파라미터가 1개 밖에 없으니 0번 파라미터만 참조하고 있다.
     @CsvSource({"10, '자바 스터디'", "20, 스프링"})
-    void parameterizedTest(ArgumentsAccessor argumentsAccessor) {
-        Study study = new Study(argumentsAccessor.getInteger(0), argumentsAccessor.getString(1));
+    void parameterizedTest(@AggregateWith(StudyAggregator.class) Study study) {
         System.out.println(study);
+    }
+
+    static class StudyAggregator implements ArgumentsAggregator {
+        @Override
+        public Object aggregateArguments(ArgumentsAccessor accessor, ParameterContext context) throws ArgumentsAggregationException {
+           return new Study(accessor.getInteger(0), accessor.getString(1));
+        }
     }
 
     static class StudyConverter extends SimpleArgumentConverter {
