@@ -23,6 +23,7 @@ class StudyTest {
 
     @Order(2)
     @FastTest
+    @DisplayName("스터디 만들기 fast")
     void create_new_study() {
         System.out.println(this);
         System.out.println(value++);
